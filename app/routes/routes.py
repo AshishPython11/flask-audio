@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 
+
 audio_routes = Blueprint("audio", __name__)
 
 
@@ -8,12 +9,10 @@ def process_audio():
     data = request.get_json()
     text = data.get("text")
     trimmed_text, message = trim_text_for_audio(text)
-    return jsonify(
-        {"message": message, "text": trimmed_text}
-    ), 200
+    return jsonify({"message": message, "text": trimmed_text}), 200
 
 
-def trim_text_for_audio(text, words_per_second=2, max_audio_length=60):
+def trim_text_for_audio(text, words_per_second=3, max_audio_length=60):
     words = text.split()
     total_words = len(words)
     audio_length = total_words / words_per_second
